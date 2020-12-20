@@ -1,5 +1,5 @@
 class Node
-  attr_accessor :value
+  attr_reader :value
 
   def initialize(value)
     @value = value
@@ -11,11 +11,13 @@ class Node
     @children.push(node)
   end
 
+  def can_connect?(node)
+    node.value - @value <= 3
+  end
+
   def branch_count
     return @branch_count unless @branch_count.nil?
-    return 1 if @children.count.zero?
 
-    @branch_count = @children.sum(&:branch_count)
-    @branch_count
+    @branch_count = @children.count.zero? ? 1 : @children.sum(&:branch_count)
   end
 end

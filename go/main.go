@@ -3,6 +3,7 @@ package main
 import (
 	day1 "adventofcode/2021/01_sonar_sweep"
 	day2 "adventofcode/2021/02_dive"
+	day3 "adventofcode/2021/03_binary_diagnostic"
 	"adventofcode/utils"
 	"adventofcode/utils/files"
 	"fmt"
@@ -12,6 +13,7 @@ import (
 var problems = map[string]utils.Problem{
 	"sonarsweep": day1.Sonarsweep{},
 	"dive":       day2.Dive{},
+	"binary":     day3.BinaryDiagnostic{},
 }
 
 func main() {

@@ -7,13 +7,13 @@ import (
 
 func TestSolve(t *testing.T) {
 	file, err := os.ReadFile("input.txt")
-	expectedAnswer := 5
+	expectedAnswer := 1016964
 
 	if err != nil {
 		return
 	}
 
-	if expectedAnswer != Solve2(string(file)) {
+	if expectedAnswer != solve(string(file)) {
 		t.Fail()
 	}
 }

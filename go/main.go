@@ -4,6 +4,7 @@ import (
 	day1 "adventofcode/2021/01_sonar_sweep"
 	day2 "adventofcode/2021/02_dive"
 	day3 "adventofcode/2021/03_binary_diagnostic"
+	day4 "adventofcode/2021/04_giant_squid"
 	"adventofcode/utils"
 	"adventofcode/utils/files"
 	"fmt"
@@ -14,6 +15,7 @@ var problems = map[string]utils.Problem{
 	"sonarsweep": day1.Sonarsweep{},
 	"dive":       day2.Dive{},
 	"binary":     day3.BinaryDiagnostic{},
+	"bingo":      day4.GiantSquid{},
 }
 
 func main() {

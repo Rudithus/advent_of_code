@@ -21,3 +21,14 @@ func Sum(arr []int) int {
 	}
 	return sum
 }
+
+func CompareInt(one, other int) int {
+	if one > other {
+		return 1
+	}
+	if one < other {
+		return -1
+	}
+
+	return 0
+}

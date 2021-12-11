@@ -7,6 +7,7 @@ import (
 	day4 "adventofcode/2021/04_giant_squid"
 	day5 "adventofcode/2021/05_hydrothermal_venture"
 	day6 "adventofcode/2021/06_lanternfish"
+	day7 "adventofcode/2021/07_treachery_of_whales"
 	"adventofcode/utils"
 	"adventofcode/utils/files"
 	"fmt"
@@ -20,13 +21,14 @@ var problems = map[string]utils.Problem{
 	"bingo":       day4.GiantSquid{},
 	"hydro":       day5.HydrothermalVent{},
 	"lanternfish": day6.Lanternfish{},
+	"whales":      day7.TreacheryOfWhales{},
 }
 
 func main() {
 	problem := problems[os.Args[1]]
 	question := os.Args[2]
 
-	linereader := files.LineReader(problem.Input())
+	linereader := files.CharReader(problem.Input())
 	if question == "q2" {
 		fmt.Println(problem.SolveQ2(linereader))
 		return

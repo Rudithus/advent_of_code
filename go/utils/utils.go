@@ -1,5 +1,7 @@
 package utils
 
+import "math"
+
 type ReadLine func() (line string, eof bool)
 
 type Problem interface {
@@ -31,4 +33,13 @@ func CompareInt(one, other int) int {
 	}
 
 	return 0
+}
+func AbsInt(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
+func Middle(arr []int) int {
+	return int(math.Ceil(float64(len(arr)) / 2))
 }

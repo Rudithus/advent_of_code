@@ -2,14 +2,14 @@ package day3
 
 import (
 	"adventofcode/utils"
+	"bufio"
 	"math"
-	"strconv"
 )
 
 type BinaryDiagnostic struct{}
 
-func (BinaryDiagnostic) Input() string {
-	return "2021/03_binary_diagnostic/input.txt"
+func (BinaryDiagnostic) Path() string {
+	return "2021/03_binary_diagnostic"
 }
 
 func gamma_epsilon(arr []int) (gamma int, epsilon int) {
@@ -25,8 +25,9 @@ func gamma_epsilon(arr []int) (gamma int, epsilon int) {
 	return gamma, epsilon
 }
 
-func determineWeight(rl utils.ReadLine) []int {
-	line, eof := rl()
+func determineWeight(input []byte) []int {
+	read := utils.Reader(input, bufio.ScanLines)
+	line, eof := read()
 	arr := make([]int, len(line))
 	for !eof {
 		for i, b := range line {
@@ -36,21 +37,22 @@ func determineWeight(rl utils.ReadLine) []int {
 				arr[i]++
 			}
 		}
-		line, eof = rl()
+		line, eof = read()
 	}
 	return arr
 }
 
-func (BinaryDiagnostic) SolveQ1(rl utils.ReadLine) string {
-	arr := determineWeight(rl)
+func (BinaryDiagnostic) SolveQ1(input []byte) int {
+	arr := determineWeight(input)
 
 	gamma, epsilon := gamma_epsilon(arr)
 
-	return strconv.Itoa(gamma * epsilon)
+	return gamma * epsilon
 }
 
-func generateBitArr(rl utils.ReadLine) [][]bool {
-	line, eof := rl()
+func generateBitArr(input []byte) [][]bool {
+	read := utils.Reader(input, bufio.ScanLines)
+	line, eof := read()
 	var arrs [][]bool
 	for !eof {
 		arr := make([]bool, len(line))
@@ -62,7 +64,7 @@ func generateBitArr(rl utils.ReadLine) [][]bool {
 			}
 		}
 		arrs = append(arrs, arr)
-		line, eof = rl()
+		line, eof = read()
 	}
 	return arrs
 }
@@ -118,10 +120,10 @@ func toInt(arr []bool) int {
 	return acc
 }
 
-func (BinaryDiagnostic) SolveQ2(rl utils.ReadLine) string {
-	arrs := generateBitArr(rl)
+func (BinaryDiagnostic) SolveQ2(input []byte) int {
+	arrs := generateBitArr(input)
 	o2 := toInt(o2(0, arrs))
 	co2 := toInt(co2(0, arrs))
 
-	return strconv.Itoa(o2 * co2)
+	return o2 * co2
 }

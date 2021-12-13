@@ -2,28 +2,24 @@ package day7
 
 import (
 	"adventofcode/utils"
-	"fmt"
 	"strconv"
 )
 
 type TreacheryOfWhales struct{}
 
-func (TreacheryOfWhales) Input() string {
-	return "2021/07_treachery_of_whales/input.txt"
+func (TreacheryOfWhales) Path() string {
+	return "2021/07_treachery_of_whales"
 }
 
-func (TreacheryOfWhales) SolveQ1(rl utils.ReadLine) string {
+func (TreacheryOfWhales) SolveQ1(input []byte) int {
+	read := utils.Reader(input, utils.CommaSplitFunc)
 	arr := utils.OrderedIntArray{0}
-	for {
-		ch, eof := rl()
-		if eof {
-			break
-		}
+
+	for ch, eof := read(); !eof; ch, eof = read() {
 		number, _ := strconv.Atoi(ch)
 		arr.Append(number)
 	}
 
-	fmt.Println(arr)
 	middle := arr[utils.Middle(arr)]
 
 	fuel := -middle
@@ -31,7 +27,7 @@ func (TreacheryOfWhales) SolveQ1(rl utils.ReadLine) string {
 		diff := utils.AbsInt(v - middle)
 		fuel += int(diff)
 	}
-	return strconv.Itoa(fuel)
+	return fuel
 }
 
 var cache = map[int]int{}
@@ -46,13 +42,10 @@ func calculateCost(target int, origin int) int {
 	cache[diff] = result
 	return result
 }
-func readToEnd(rl utils.ReadLine) (arr []int, max int) {
-	for {
-		line, eof := rl()
-		if eof {
-			break
-		}
-		val, _ := strconv.Atoi(line)
+func readToEnd(input []byte) (arr []int, max int) {
+	read := utils.Reader(input, utils.CommaSplitFunc)
+	for ch, eof := read(); !eof; ch, eof = read() {
+		val, _ := strconv.Atoi(ch)
 		if val > max {
 			max = val
 		}
@@ -60,8 +53,8 @@ func readToEnd(rl utils.ReadLine) (arr []int, max int) {
 	}
 	return arr, max
 }
-func (TreacheryOfWhales) SolveQ2(rl utils.ReadLine) string {
-	arr, max := readToEnd(rl)
+func (TreacheryOfWhales) SolveQ2(input []byte) int {
+	arr, max := readToEnd(input)
 	min := 99999999
 	for index := 0; index < max; index++ {
 		cost := 0
@@ -72,5 +65,5 @@ func (TreacheryOfWhales) SolveQ2(rl utils.ReadLine) string {
 			min = cost
 		}
 	}
-	return strconv.Itoa(min)
+	return min
 }

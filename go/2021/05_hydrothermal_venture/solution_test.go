@@ -1,28 +1,14 @@
 package day5
 
 import (
-	"adventofcode/utils/files"
+	"adventofcode/tests"
 	"testing"
 )
 
-var problem = HydrothermalVent{}
-
-func TestQ1(t *testing.T) {
-	lineReader := files.LineReader("test.txt")
-	expectedAnswer := "5"
-	answer := problem.SolveQ1(lineReader)
-
-	if expectedAnswer != answer {
-		t.Error("expected:" + expectedAnswer + " got:" + answer)
-	}
+func TestSolveQ1(t *testing.T) {
+	tests.TestQ1(t, HydrothermalVent{}, 5)
 }
 
-func TestQ2(t *testing.T) {
-	lineReader := files.LineReader("test.txt")
-	expectedAnswer := "12"
-	answer := problem.SolveQ2(lineReader)
-
-	if expectedAnswer != answer {
-		t.Error("expected:" + expectedAnswer + " got:" + answer)
-	}
+func TestSolveQ2(t *testing.T) {
+	tests.TestQ2(t, HydrothermalVent{}, 12)
 }

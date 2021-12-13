@@ -2,14 +2,15 @@ package day6
 
 import (
 	"adventofcode/utils"
+	"bufio"
 	"strconv"
 	"strings"
 )
 
 type Lanternfish struct{}
 
-func (Lanternfish) Input() string {
-	return "2021/06_lanternfish/input.txt"
+func (Lanternfish) Path() string {
+	return "2021/06_lanternfish"
 }
 
 func parseFish(line string) [9]int {
@@ -32,8 +33,9 @@ func iterate(fishes []int) {
 	fishes[8] += newFish
 }
 
-func (Lanternfish) SolveQ1(rl utils.ReadLine) string {
-	line, _ := rl()
+func (Lanternfish) SolveQ1(input []byte) int {
+	read := utils.Reader(input, bufio.ScanLines)
+	line, _ := read()
 
 	fishes := parseFish(line)
 
@@ -41,11 +43,12 @@ func (Lanternfish) SolveQ1(rl utils.ReadLine) string {
 		iterate(fishes[:])
 	}
 
-	return strconv.Itoa(utils.Sum(fishes[:]))
+	return utils.Sum(fishes[:])
 }
 
-func (Lanternfish) SolveQ2(rl utils.ReadLine) string {
-	line, _ := rl()
+func (Lanternfish) SolveQ2(input []byte) int {
+	read := utils.Reader(input, bufio.ScanLines)
+	line, _ := read()
 
 	fishes := parseFish(line)
 
@@ -53,5 +56,5 @@ func (Lanternfish) SolveQ2(rl utils.ReadLine) string {
 		iterate(fishes[:])
 	}
 
-	return strconv.Itoa(utils.Sum(fishes[:]))
+	return utils.Sum(fishes[:])
 }

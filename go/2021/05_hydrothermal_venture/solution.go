@@ -2,13 +2,14 @@ package day5
 
 import (
 	"adventofcode/utils"
+	"bufio"
 	"strconv"
 	"strings"
 )
 
 type HydrothermalVent struct{}
 
-func (HydrothermalVent) Input() string { return "2021/05_hydrothermal_venture/input.txt" }
+func (HydrothermalVent) Path() string { return "2021/05_hydrothermal_venture" }
 
 type Coordinate struct {
 	X int
@@ -63,15 +64,10 @@ func (g *Grid) markCoordinate(c Coordinate) {
 		g.dangerCount++
 	}
 }
-func (HydrothermalVent) SolveQ1(rl utils.ReadLine) string {
+func (HydrothermalVent) SolveQ1(input []byte) int {
 	var grid Grid
-
-	for {
-		line, eof := rl()
-		if eof {
-			break
-		}
-
+	read := utils.Reader(input, bufio.ScanLines)
+	for line, eof := read(); !eof; line, eof = read() {
 		vent := vent(line)
 		if vent.Start.X == vent.End.X || vent.Start.Y == vent.End.Y {
 			grid.markCoordinate(vent.Start)
@@ -85,18 +81,14 @@ func (HydrothermalVent) SolveQ1(rl utils.ReadLine) string {
 			}
 		}
 	}
-	return strconv.Itoa(grid.dangerCount)
+	return grid.dangerCount
 }
 
-func (HydrothermalVent) SolveQ2(rl utils.ReadLine) string {
+func (HydrothermalVent) SolveQ2(input []byte) int {
 	var grid Grid
+	read := utils.Reader(input, bufio.ScanLines)
 
-	for {
-		line, eof := rl()
-		if eof {
-			break
-		}
-
+	for line, eof := read(); !eof; line, eof = read() {
 		vent := vent(line)
 		grid.markCoordinate(vent.Start)
 		traverse := vent.Start.traverser(vent.End)
@@ -108,5 +100,5 @@ func (HydrothermalVent) SolveQ2(rl utils.ReadLine) string {
 			}
 		}
 	}
-	return strconv.Itoa(grid.dangerCount)
+	return grid.dangerCount
 }

@@ -2,14 +2,15 @@ package day4
 
 import (
 	"adventofcode/utils"
+	"bufio"
 	"strconv"
 	"strings"
 )
 
 type GiantSquid struct{}
 
-func (GiantSquid) Input() string {
-	return "2021/04_giant_squid/input.txt"
+func (GiantSquid) Path() string {
+	return "2021/04_giant_squid"
 }
 
 func prepareNumbers() (numbers [100]*BingoNumber) {
@@ -19,12 +20,12 @@ func prepareNumbers() (numbers [100]*BingoNumber) {
 	return
 }
 
-func getDraw(rl utils.ReadLine) []string {
-	line, _ := rl()
+func getDraw(read func() (string, bool)) []string {
+	line, _ := read()
 	return strings.Split(line, ",")
 }
 
-func createBoard(rl utils.ReadLine, bns [100]*BingoNumber) bool {
+func createBoard(read func() (string, bool), bns [100]*BingoNumber) bool {
 	bb := &BingoBoard{Complete: false}
 	var verticalSeries [5]*BingoSeries
 	for i := 0; i < 5; i++ {
@@ -33,7 +34,7 @@ func createBoard(rl utils.ReadLine, bns [100]*BingoNumber) bool {
 
 	lineCount := 0
 	for {
-		line, eof := rl()
+		line, eof := read()
 		if eof || line == "" {
 			return eof
 		}
@@ -54,35 +55,38 @@ func createBoard(rl utils.ReadLine, bns [100]*BingoNumber) bool {
 	}
 }
 
-func prepareBingo(rl utils.ReadLine) (numbers [100]*BingoNumber, draw []string, boardCount int) {
+func prepareBingo(read func() (string, bool)) (numbers [100]*BingoNumber, draw []string, boardCount int) {
 	numbers = prepareNumbers()
-	draw = getDraw(rl)
-	rl()
+	draw = getDraw(read)
+	read()
 	boardCount = 1
-	for !createBoard(rl, numbers) {
+	for !createBoard(read, numbers) {
 		boardCount++
 	}
 
 	return
 }
 
-func (GiantSquid) SolveQ1(rl utils.ReadLine) string {
-	numbers, draw, _ := prepareBingo(rl)
+func (GiantSquid) SolveQ1(input []byte) int {
+	read := utils.Reader(input, bufio.ScanLines)
+	numbers, draw, _ := prepareBingo(read)
 
 	for _, char := range draw {
 		value, _ := strconv.Atoi(char)
 		number := numbers[value]
 		winners := number.Mark()
 		if len(winners) > 0 {
-			return strconv.Itoa(winners[0].Score)
+			return winners[0].Score
 		}
 	}
-	return ""
+	return 0
 }
 
-func (GiantSquid) SolveQ2(rl utils.ReadLine) string {
-	numbers, draw, _ := prepareBingo(rl)
+func (GiantSquid) SolveQ2(input []byte) int {
+	read := utils.Reader(input, bufio.ScanLines)
+	numbers, draw, _ := prepareBingo(read)
 	var lastWinner *BingoBoard
+
 	for _, char := range draw {
 		value, _ := strconv.Atoi(char)
 		number := numbers[value]
@@ -92,5 +96,5 @@ func (GiantSquid) SolveQ2(rl utils.ReadLine) string {
 		}
 	}
 
-	return strconv.Itoa(lastWinner.Score)
+	return lastWinner.Score
 }

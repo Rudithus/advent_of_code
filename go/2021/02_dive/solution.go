@@ -4,14 +4,15 @@ import (
 	"adventofcode/2021/02_dive/q1"
 	"adventofcode/2021/02_dive/q2"
 	"adventofcode/utils"
+	"bufio"
 	"strconv"
 	"strings"
 )
 
 type Dive struct{}
 
-func (Dive) Input() string {
-	return "2021/02_dive/input.txt"
+func (Dive) Path() string {
+	return "2021/02_dive"
 }
 
 type Submarine interface {
@@ -20,13 +21,9 @@ type Submarine interface {
 	Up(value int)
 }
 
-func process(sub Submarine, rl utils.ReadLine) {
-	for {
-		line, eof := rl()
-		if eof {
-			break
-		}
-
+func process(sub Submarine, input []byte) {
+	read := utils.Reader(input, bufio.ScanLines)
+	for line, eof := read(); !eof; line, eof = read() {
 		fields := strings.Fields(line)
 		direction := fields[0]
 		value, _ := strconv.Atoi(fields[1])
@@ -40,14 +37,14 @@ func process(sub Submarine, rl utils.ReadLine) {
 		}
 	}
 }
-func (Dive) SolveQ1(rl utils.ReadLine) string {
+func (Dive) SolveQ1(input []byte) int {
 	sub := q1.Submarine{Pos: q1.Position{X: 0, Y: 0}}
-	process(&sub, rl)
-	return strconv.Itoa(sub.Pos.X * sub.Pos.Y)
+	process(&sub, input)
+	return sub.Pos.X * sub.Pos.Y
 }
 
-func (Dive) SolveQ2(rl utils.ReadLine) string {
+func (Dive) SolveQ2(input []byte) int {
 	sub := q2.Submarine{Pos: q2.Position{X: 0, Y: 0}, Aim: 0}
-	process(&sub, rl)
-	return strconv.Itoa(sub.Pos.X * sub.Pos.Y)
+	process(&sub, input)
+	return sub.Pos.X * sub.Pos.Y
 }

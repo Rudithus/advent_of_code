@@ -2,25 +2,22 @@ package day1
 
 import (
 	"adventofcode/utils"
+	"bufio"
 	"strconv"
 )
 
 type Sonarsweep struct{}
 
-func (Sonarsweep) Input() string {
-	return "2021/01_sonar_sweep/input.txt"
+func (Sonarsweep) Path() string {
+	return "2021/01_sonar_sweep"
 }
 
-func (Sonarsweep) SolveQ1(rl utils.ReadLine) string {
+func (Sonarsweep) SolveQ1(input []byte) int {
 	counter := 0
 	previous := 9999
+	read := utils.Reader(input, bufio.ScanLines)
 
-	for {
-		line, eof := rl()
-		if eof {
-			break
-		}
-
+	for line, eof := read(); !eof; line, eof = read() {
 		depth, _ := strconv.Atoi(line)
 		if depth > previous {
 			counter++
@@ -28,26 +25,25 @@ func (Sonarsweep) SolveQ1(rl utils.ReadLine) string {
 		previous = depth
 	}
 
-	return strconv.Itoa(counter)
+	return counter
 }
 
-func readtoend(rl utils.ReadLine) []int {
+func parseDepths(input []byte) []int {
 	var arr []int
-	for {
-		line, eof := rl()
-		if eof {
-			break
-		}
+	read := utils.Reader(input, bufio.ScanLines)
 
-		val, _ := strconv.Atoi(line)
+	for line, eof := read(); !eof; line, eof = read() {
+		val, err := strconv.Atoi(line)
+		utils.Check(err)
+
 		arr = append(arr, val)
 	}
 
 	return arr
 }
 
-func (Sonarsweep) SolveQ2(rl utils.ReadLine) string {
-	depths := readtoend(rl)
+func (Sonarsweep) SolveQ2(input []byte) int {
+	depths := parseDepths(input)
 
 	counter := 0
 	previous := utils.Sum(depths[0:3])
@@ -60,5 +56,5 @@ func (Sonarsweep) SolveQ2(rl utils.ReadLine) string {
 		previous = sum
 	}
 
-	return strconv.Itoa(counter)
+	return counter
 }

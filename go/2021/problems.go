@@ -8,6 +8,7 @@ import (
 	day5 "adventofcode/2021/05_hydrothermal_venture"
 	day6 "adventofcode/2021/06_lanternfish"
 	day7 "adventofcode/2021/07_treachery_of_whales"
+	day8 "adventofcode/2021/08_seven_segment_search"
 	"adventofcode/utils"
 )
 
@@ -19,6 +20,7 @@ var problems = map[string]utils.Problem{
 	"hydro":       day5.HydrothermalVent{},
 	"lanternfish": day6.Lanternfish{},
 	"whales":      day7.TreacheryOfWhales{},
+	"seven":       day8.SevenSegment{},
 }
 
 func Problems() map[string]utils.Problem {

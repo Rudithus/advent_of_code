@@ -43,7 +43,7 @@ func (Lanternfish) SolveQ1(input []byte) int {
 		iterate(fishes[:])
 	}
 
-	return utils.Sum(fishes[:])
+	return utils.SumInts(fishes[:])
 }
 
 func (Lanternfish) SolveQ2(input []byte) int {
@@ -56,5 +56,5 @@ func (Lanternfish) SolveQ2(input []byte) int {
 		iterate(fishes[:])
 	}
 
-	return utils.Sum(fishes[:])
+	return utils.SumInts(fishes[:])
 }

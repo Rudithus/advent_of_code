@@ -14,7 +14,12 @@ func BenchmarkSolutions(b *testing.B) {
 		input, err := os.ReadFile("../" + p.Path() + "/input.txt")
 		utils.Check(err)
 		b.ResetTimer()
-		b.Run(testName, func(b *testing.B) {
+		b.Run(testName+"Q1", func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				p.SolveQ1(input)
+			}
+		})
+		b.Run(testName+"Q2", func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				p.SolveQ2(input)
 			}

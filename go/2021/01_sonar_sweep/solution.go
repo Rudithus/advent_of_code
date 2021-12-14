@@ -46,10 +46,10 @@ func (Sonarsweep) SolveQ2(input []byte) int {
 	depths := parseDepths(input)
 
 	counter := 0
-	previous := utils.Sum(depths[0:3])
+	previous := utils.SumInts(depths[0:3])
 
 	for i := 4; i <= len(depths); i++ {
-		sum := utils.Sum(depths[i-3 : i])
+		sum := utils.SumInts(depths[i-3 : i])
 		if sum > previous {
 			counter++
 		}

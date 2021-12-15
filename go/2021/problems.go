@@ -10,6 +10,7 @@ import (
 	day7 "adventofcode/2021/07_treachery_of_whales"
 	day8 "adventofcode/2021/08_seven_segment_search"
 	day9 "adventofcode/2021/09_smoke_basin"
+	day10 "adventofcode/2021/10_syntax_scoring"
 	"adventofcode/utils"
 )
 
@@ -23,6 +24,7 @@ var problems = map[string]utils.Problem{
 	"whales":      day7.TreacheryOfWhales{},
 	"seven":       day8.SevenSegment{},
 	"smoke":       day9.SmokeBasin{},
+	"syntax":      day10.SyntaxScoring{},
 }
 
 func Problems() map[string]utils.Problem {

@@ -1,6 +1,9 @@
 package utils
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 func Middle(arr []int) int {
 	return int(math.Ceil(float64(len(arr)) / 2))
@@ -28,4 +31,18 @@ func Contains(arr *[]string, value string) bool {
 		}
 	}
 	return false
+}
+
+func PrintGrid(grid [][]bool) {
+	for _, arr := range grid {
+		str := ""
+		for _, dot := range arr {
+			if dot {
+				str += "#"
+			} else {
+				str += "."
+			}
+		}
+		fmt.Println(str)
+	}
 }
